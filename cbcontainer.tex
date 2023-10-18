@@ -1,0 +1,179 @@
+\section{Introduction}
+
+This is a sample report created from internal demo Kubernetes clusters.
+
+\vskip15pt
+\par
+
+For more information about VMware products vulnerabilities, please visit:
+
+\href{https://www.vmware.com/security/advisories.html}{VMware Security Advisories}
+
+
+\section{Kubernetes clusters}
+
+This is the list of Kubernetes clusters protected by VMware Carbon Black Container.
+\vskip15pt
+
+\verbfile{./cluster_list.txt}
+
+\section{Namespaces}
+
+This is the list of \gls{ns} protected by VMware Carbon Black Container.
+\vskip15pt
+
+\verbfile{./namespace_list.txt}
+
+\section{Container Registries}
+\subsection{Container Registries detected}
+This is the list of container Registries detected by VMware Carbon Black Container.
+\vskip15pt
+
+\verbfile{./registry_list.txt}
+
+\vskip15pt
+
+"docker.io" aka "Docker Hub" is the default container registry for Docker and Kubernetes.
+
+\subsection{About Docker Hub}
+\subsubsection{Docker Hub Rate limit}
+\href{https://tanzu.vmware.com/developer/guides/harbor-as-docker-proxy/}{How to use Harbor Registry to Eliminate Docker Hub Rate Limits}
+
+\subsubsection{Docker Hub malicious container images}
+
+\begin{quote}
+Over 1,600 publicly available Docker Hub images hide malicious behavior, including cryptocurrency miners, embedded secrets that can be used as backdoors, DNS hijackers, and website redirectors.
+\end{quote}
+\href{https://www.bleepingcomputer.com/news/security/docker-hub-repositories-hide-over-1-650-malicious-containers/}{source: Bleeping Computer}
+
+\begin{tipblock}
+Carbon Black Container can block Docker Hub usage. Some free open source container registries could be used, for example \href{https://goharbor.io/}{Harbor}.
+\end{tipblock}
+
+\section{Hardening Policies}
+%\noindent
+
+This section list all security policies, and provides the number of exceptions and violations.
+
+\begin{table}[h!]
+	\centering
+	\begin{tabular}{ |c|c|c|c| }
+		\hline
+		Policy name & Scope & Exceptions & Violations \\ 
+		\hline\hline
+		\input{hardeningpolicies}
+%	\end{tabular} --> included in hardeningpolicies
+\caption{Hardening policies.}
+\end{table}
+
+\begin{importantblock}
+	Violations can be: alert or block or \gls{enforcement}. Modify your infrastucture to be compliant, and last option can be to add some exceptions.
+\end{importantblock}
+
+\section{Security alerts}
+\noindent
+
+This is a summary of alerts reasons, for more details, please see VMware Carbon Black console:
+\vskip10pt
+
+US: \href{https://defense-prod05.conferdeploy.net/}{https://defense-prod05.conferdeploy.net/}
+
+EU: \href{https://defense-eu.conferdeploy.net/}{https://defense-eu.conferdeploy.net/}
+
+NRT: \href{https://defense-prodnrt.conferdeploy.net/}{https://defense-prodnrt.conferdeploy.net/}
+
+\vskip10pt
+
+\begin{obeylines}
+\input{./alerts_reason.txt}
+\end{obeylines}
+
+
+\subsection{Alerts - Hardening - K8s Events}
+
+%Container running as \textbf{root} detected in your Kubernetes clusters.
+
+\subsection{Alerts - Network}
+\noindent
+
+%\textbf{Port scan} detected in your Kubernetes clusters.
+
+Connection to \textbf{malicious IP} :
+
+%\href{malware.com}{malware.com}
+
+\verbfile{./alerts_remoteip.txt}
+
+\begin{importantblock}
+If your Kubernetes cluster connects to a malicious IP, investigate! 
+\end{importantblock} 
+
+\subsection{Alerts - CNDR}
+
+CNDR = Cloud Native Detection and Response
+
+\paragraph{}
+
+\textbf{CNDR} alerts are:
+\begin{itemize}
+	\item CB analytics (NGAV - Next Gen Anti Virus)
+	\item Watchlists (EEDR - Enterprise Endpoint Detection and Response)
+\end{itemize}
+
+xmrig detected in your Kubernetes clusters.
+
+\section{Malware and Secret Detection}
+\subsection{Malware}
+\noindent
+
+TODO\\
+There is 0 malware in your Kubernetes clusters.
+
+\subsection{Secret Detection}
+\noindent
+
+TODO\\
+There is 0 secret in your Kubernetes clusters.
+
+\section{Critical vulnerabilities}
+
+Only container images with critical vulnerabilities will be listed below.
+
+%Vulnerabilities color code
+\definecolor{darkred}{RGB}{106,2,12}
+\definecolor{red}{RGB}{211,18,18}
+\definecolor{orange}{RGB}{253,136,36}
+\definecolor{yellow}{RGB}{255,202,58}
+\definecolor{lightgrey}{RGB}{187,199,204}
+
+\newtcbox{\criticalvulncbox}{colframe=darkred,colback=darkred,top=0pt,bottom=0pt,colupper=white}
+\newtcbox{\highvulncbox}{colframe=red,colback=red,top=0pt,bottom=0pt,colupper=white}
+\newtcbox{\mediumvulncbox}{colframe=orange,colback=orange,top=0pt,bottom=0pt,colupper=white}
+\newtcbox{\lowvulncbox}{colframe=yellow,colback=yellow,top=0pt,bottom=0pt}
+\newtcbox{\unknownvulncbox}{colframe=lightgrey,colback=lightgrey,top=0pt,bottom=0pt,colupper=white}
+
+\vskip10pt
+
+\tcbset{on line}
+Color code:
+\criticalvulncbox{Critical}
+\highvulncbox{High}
+\mediumvulncbox{Medium} 
+\lowvulncbox{Low} 
+\unknownvulncbox{Unknown} 
+
+Example: 
+\criticalvulncbox{200/100} = 
+200 critical vulnerabilities / 100 critical vulnerabilities with fix available
+\par
+
+\begin{center}
+\rule{0.5\linewidth}{1pt}
+\end{center}
+
+
+%--------------------------
+% Critical
+%--------------------------
+\input{critical}
+

@@ -1,0 +1,50 @@
+% !TeX program = xelatex
+\documentclass[12pt,letterpaper]{report}
+\input{cbcommon}
+
+\begin{document}
+
+\thispagestyle{empty}
+\bannercbcontainer
+\title{VMware Carbon Black\\Executive Security report}
+\input{author}
+\department{IT Department}
+\cbinstance{CB Org: slist instance}
+\date{\today}
+\logocbcontainer
+
+% Table of Contents
+\newpage
+
+\tableofcontents
+%\listoftables
+\listoffigures
+%\newpage
+
+\chapter{Carbon Black Inventory}
+\input{cbinventory}
+
+\chapter{Carbon Black Container security}
+\input{cbcontainer}
+
+%\chapter{Carbon Black Workload security}
+%\input{cbworkload}
+
+%\chapter{Carbon Black audit log}
+%\input{cbauditlog}
+
+% Glossary
+\newpage
+
+\printglossaries
+
+% Last page
+\newpage
+\thispagestyle{empty}
+\bannercbcontainer
+\vspace{2cm}
+\title{We can win the fight\\We can help}
+
+\logocbcontainer
+
+\end{document}

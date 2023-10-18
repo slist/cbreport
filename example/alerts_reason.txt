@@ -1,0 +1,36 @@
+default:aa cbcontainers-dataplane Detected a connection to a private network that isn't allowed for this scope Allowed private destinations
+default:aa cbcontainers-dataplane Detected a connection to a public destination that isn't allowed for this scope Allowed public destinations
+default:aa gmp-system Detected a connection to a private network that isn't allowed for this scope Allowed private destinations
+default:aa kube-system Detected a connection to a private network that isn't allowed for this scope Allowed private destinations
+default:aa kube-system Detected a connection to a public destination that isn't allowed for this scope Allowed public destinations
+default:cb-slist2 acme-be Detected a connection to a public destination that isn't allowed for this scope Allowed public destinations
+default:cb-slist2 acme-fe Detected a connection to a public destination that isn't allowed for this scope Allowed public destinations
+default:cb-slist2 cbcontainers-dataplane Detected a connection to a private network that isn't allowed for this scope Allowed private destinations
+default:cb-slist2 cbcontainers-dataplane Detected a connection to a public destination that isn't allowed for this scope Allowed public destinations
+default:cb-slist2 gmp-system Detected a connection to a private network that isn't allowed for this scope Allowed private destinations
+default:cb-slist2 kube-system Detected a connection to a private network that isn't allowed for this scope Allowed private destinations
+default:cb-slist2 kube-system Detected a connection to a public destination that isn't allowed for this scope Allowed public destinations
+default:cb-slist2 log4j Detected a connection to a public destination that isn't allowed for this scope Allowed public destinations
+default:cb-slist2 netdemo A workload ran a port scan internally Internal port scan
+default:cb-slist2 netdemo Detected a connection to a destination with a known malicious reputation High risk malicious destinations
+default:cb-slist2 netdemo Detected a connection to a private network that isn't allowed for this scope Allowed private destinations
+default:cb-slist2 netdemo Detected a connection to a public destination that isn't allowed for this scope Allowed public destinations
+default:cb-slist acme-be Detected a connection to a public destination that isn't allowed for this scope Allowed public destinations
+default:cb-slist acme-fe Detected a connection to a public destination that isn't allowed for this scope Allowed public destinations
+default:cb-slist cbcontainers-dataplane Detected a connection to a private network that isn't allowed for this scope Allowed private destinations
+default:cb-slist cbcontainers-dataplane Detected a connection to a public destination that isn't allowed for this scope Allowed public destinations
+default:cb-slist cbcontainers-dataplane Detected an abnormal egress connection with medium or low risk Medium or low risk egress connections
+default:cb-slist cbcontainers-dataplane Detected an abnormal ingress connection with medium or low risk Medium or low risk ingress connections
+default:cb-slist cbcontainers-dataplane Detected an abnormal internal connection with medium or low risk Medium or low risk internal connections
+default:cb-slist default Detected a connection to a public destination that isn't allowed for this scope Allowed public destinations
+default:cb-slist default Detected an abnormal internal connection with medium or low risk Medium or low risk internal connections
+default:cb-slist gmp-system Detected a connection to a private network that isn't allowed for this scope Allowed private destinations
+default:cb-slist kube-system Detected a connection to a private network that isn't allowed for this scope Allowed private destinations
+default:cb-slist kube-system Detected a connection to a public destination that isn't allowed for this scope Allowed public destinations
+default:cb-slist kube-system Detected an abnormal egress connection with medium or low risk Medium or low risk egress connections
+default:cb-slist kube-system Detected an abnormal internal connection with medium or low risk Medium or low risk internal connections
+default:cb-slist log4j Detected a connection to a public destination that isn't allowed for this scope Allowed public destinations
+default:microk8s cbcontainers-dataplane Detected a connection to a public destination that isn't allowed for this scope Allowed public destinations
+default:microk8s cbcontainers-dataplane Detected an abnormal egress connection with medium or low risk Medium or low risk egress connections
+default:microk8s cbcontainers-dataplane Detected an abnormal internal connection with medium or low risk Medium or low risk internal connections
+default:microk8s kube-system Detected an abnormal internal connection with medium or low risk Medium or low risk internal connections

@@ -1,0 +1,19 @@
+\begin{figure}[H]
+\begin{tikzpicture}
+\begin{axis}[
+xbar,
+y axis line style = { opacity = 0 },
+axis x line       = none,
+tickwidth         = 0pt,
+ytick             = data,
+width=0.7\textwidth,
+height=100pt,
+symbolic y coords = {Windows 11 x64,Ubuntu 22.04.3 x64,Linux (Unsupported),},
+nodes near coords
+]
+\addplot coordinates { (1,Windows 11 x64) (1,Ubuntu 22.04.3 x64) (1,Linux (Unsupported)) };
+\end{axis}
+\end{tikzpicture}
+\caption{OS versions for active devices}
+\end{figure}
+

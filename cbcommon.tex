@@ -1,0 +1,183 @@
+\usepackage{tikz}
+\usepackage{enumitem}
+\usepackage{setspace}
+\usepackage{times}
+\usepackage{tcolorbox}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{awesomebox}
+\usepackage{float} %To be able to use H on figure to force position. See https://tex.stackexchange.com/questions/16207/image-from-includegraphics-showing-up-in-wrong-location
+
+\usepackage[toc,section=section]{glossaries}
+\input{cbglossary}
+\makeglossaries
+
+\usepackage[colorlinks = true,
+linkcolor = blue,
+urlcolor  = blue,
+citecolor = blue,
+anchorcolor = blue]{hyperref}
+
+\usepackage{geometry}
+\geometry{hmargin=1.5cm,vmargin=1.5cm}
+
+\usepackage{pgfplots}
+\usepackage{pgfplotstable}
+
+%
+% These colour codes are taken from the RGB swatches in Brand Central.
+% https://www.vmware.com/brand/portal/guidelines/color.html
+%
+\definecolor{vmwBlack}{HTML}{000000}
+\definecolor{vmwWhite}{HTML}{ffffff}
+\definecolor{vmwGrey}{HTML}{717074}
+
+% Primary colours
+\definecolor{vmwOcean}{HTML}{0091DA}
+\definecolor{vmwLeaf}{HTML}{78BE20}
+\definecolor{vmwIndigo}{HTML}{1D428A}
+
+% Secondary colours; never use alone.
+\definecolor{vmwPlum}{HTML}{7F35B2}
+\definecolor{vmwAqua}{HTML}{00C1D5}
+
+\definecolor{darkblue}{HTML}{0070E0}
+
+% Use VMware font : Metropolis
+\usepackage{fontspec}
+\setmainfont[Ligatures=TeX]{Metropolis Light} % default font, requires fontspec package
+\newfontfamily\vmwFontMetropolis{Metropolis}
+\newfontfamily\vmwFontMetropolisLight{Metropolis Light}
+%--> Need to use XeLaTex
+
+%
+% Table formatting
+%
+\usepackage{tabularray}
+
+%
+% Table styles
+%
+
+% This environment replicates the "vmw_table heading left" style defined in the VMware Microsoft Office template.
+\newcommand{\styleVmwTableHeadingLeft}{
+	\fontMetropolis
+	\fontsize{10pt}{10pt}\selectfont % font size, line spacing
+	\color{vmwBlack}
+}
+
+% This macro replicates the "vmw_table heading top" style defined in the VMware Microsoft Office template.
+\newcommand{\styleVmwTableHeadingTop}{
+	\fontMetropolis
+	%  \fontsize{9.5pt}{9.5pt}\selectfont % font size, line spacing
+	\fontsize{12pt}{12pt}\selectfont % font size, line spacing
+	\color{vmwWhite}
+	\bfseries
+}
+
+% This macro replicates the "vmw_table body copy" style defined in the VMware Microsoft Office template.
+\newcommand{\styleVmwTableBodyCopy}{
+	\fontsize{8pt}{8pt}\selectfont % font size, line spacing
+	\color{vmwBlack}
+}
+
+\setlength{\arrayrulewidth}{0.6pt} % thickness of lines in tables
+
+\NewTblrEnviron{vmwTable}
+\SetTblrInner[vmwTable]{
+	hlines = {vmwGrey},
+	vlines = {vmwGrey},
+	rowsep = 5pt,
+	% The order of the settings below is important; in case of a conflict, the later settings take precedence.
+	row{odd} = {bg=vmwGrey!20},
+	row{even} = {bg=white},
+	row{2-Z} = {font=\styleVmwTableBodyCopy},
+	column{1} = {font=\styleVmwTableHeadingLeft},
+	row{1} = {bg=accent1,font=\styleVmwTableHeadingTop},
+}
+\SetTblrOuter[vmwTable]{baseline=B}
+
+\NewTblrEnviron{vmwTablePlain}
+\SetTblrInner[vmwTablePlain]{
+	hline{2-Z} = {vmwGrey},
+	rowsep = 5pt,
+	column{1} = {font=\styleVmwTableHeadingLeft},
+	column{2-Z} = {font=\styleVmwTableBodyCopy},
+}
+\SetTblrOuter[vmwTablePlain]{baseline=B}
+
+\newcommand{\nicecounter}[2]{
+	\begin{tikzpicture}[
+		e/.style={rounded corners, fill=vmwOcean, font={\sffamily\bfseries\Huge}, text=white, align=center, minimum width=130pt, text height=22pt},
+		f/.style={rounded corners, fill=vmwLeaf, font={\sffamily\bfseries\large}, text=white, align=center, minimum width=130pt, text height=15pt},
+		]
+		\node(c)[e]{#1};
+		\node(d)[f]at(c.south)[yshift=-12pt]{#2};
+	\end{tikzpicture}
+}
+
+\newcommand{\cbinstance}[1]{
+	\begin{center}
+		\large{#1}
+	\end{center}
+	\vspace{0.5cm}
+}
+
+\newcommand{\department}[1]{
+	\begin{center}
+		\large{#1}
+	\end{center}
+}
+
+\renewcommand{\author}[1]{
+	\begin{center}
+		\Large{#1}
+	\end{center}
+	\vspace{0.5cm}
+}
+\renewcommand{\title}[1]{
+	\vspace{3cm}
+	\begin{center}
+		\huge{#1}
+	\end{center}
+	\vspace{1.7cm}
+}
+
+\renewcommand{\date}[2]{
+	\begin{center}
+		\normalsize{#1 #2}
+	\end{center}
+	\vspace{0.5cm}
+}
+
+\newcommand{\bannercbcontainer}[0]{
+	\begin{tikzpicture}[remember picture,overlay]
+		\node[anchor=north west, inner sep=0pt] at (current page.north west){\includegraphics[width=\paperwidth]{cbbanner.jpg}};
+	\end{tikzpicture}
+}
+
+\newcommand{\logocbcontainer}[0]{
+	\begin{center}
+		\includegraphics[width=4.5cm]{cb.png}
+	\end{center}
+}
+
+\usepackage{fontsize}
+\changefontsize[14pt]{11pt}
+
+\usepackage{listings}
+\lstset{
+	basicstyle={\ttfamily\footnotesize},
+}
+
+\makeatletter
+\newcommand\verbfile[1]{
+	\begingroup
+	\let\do\@makeother\dospecials
+	\obeyspaces\obeylines\ttfamily
+	\input#1\relax
+	\endgroup
+}
+\makeatother
+
+\parindent=0cm
