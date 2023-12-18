@@ -1,6 +1,7 @@
 #Select org from ~/.carbonblack/credentials.cbc
 org=default
 
+.PHONY: first
 first:
 #	Get author from Linux user
 	./cbgetauthor.sh
