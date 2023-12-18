@@ -28,13 +28,13 @@ cd cbreport
 
 Edit the file cbreport.tex with your "Organization name".
 
-# Install or Update CBC SDK
-## Install
+# Install or Update CBC python SDK
+## Install CBC Python SDK
 ``` sh
 pip install carbon-black-cloud-sdk
 ```
 
-## Update
+## Update CBC Python SDK
 Or Update CBC SDK
 
 ``` sh
@@ -89,7 +89,7 @@ Each time, you generate a report, a diff with the previous report is generated.
 To remove all files, you can use 'make clean', no diff will be generated.
 
 # Generate a report every month
-To add a line in crontab to generate the report every mont, you can run:
+To add a line in crontab to generate the report every month, you can run:
 ``` sh
 make crontab
 ```
