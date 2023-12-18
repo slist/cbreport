@@ -41,7 +41,7 @@ Or Update CBC SDK
 pip install -U carbon-black-cloud-sdk
 ```
 
-
+# API Keys
 
 In CBC Console create an API with READ access on all paramaters.
 
@@ -87,3 +87,11 @@ make
 Each time, you generate a report, a diff with the previous report is generated.
 
 To remove all files, you can use 'make clean', no diff will be generated.
+
+# Generate a report every month
+To add a line in crontab to generate the report every mont, you can run:
+``` sh
+make crontab
+```
+# Thank You!
+Thank You, and Congratulations if you have setup this automatic report generation!
