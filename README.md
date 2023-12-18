@@ -58,7 +58,7 @@ in US:
 
 ``` sh
 [default]
-url=https://defense-prod05.conferdeploy.net
+url=https://defense.conferdeploy.net
 token=ABCDEFGHIJKLMNO123456789/ABCD123456
 org_key=ABCD123456
 ssl_verify=false
