@@ -269,7 +269,7 @@ else
 	echo "" >>alertsremoteip.tex
 fi
 
-./cbc-alerts-namespace.py |sort |uniq >alerts_namespace.txt
+./cbc-alerts-namespace.py ${CRED_ENTRY} |sort |uniq >alerts_namespace.txt
 if [ -s alerts_namespace.txt ]; then
 	echo "List of namespaces with high and critical runtime alerts :" >alertsnamespace.tex
 	echo "\\begin{enumerate}" >>alertsnamespace.tex
