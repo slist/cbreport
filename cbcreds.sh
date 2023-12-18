@@ -1,10 +1,20 @@
 #/bin/bash
 
 if [ -z "$1" ]
-  then
+then
     echo "No argument supplied"
     exit 1 # Error, no arg supplied
 fi
+
+if [ "$1" = "-l" ]
+then
+	grep "\[" ~/.carbonblack/credentials.cbc
+	exit 0
+fi
+
+
+CRED_ENTRY=$1
+echo "CRED_ENTRY=\"${CRED_ENTRY=}\""
 
 TOKEN=$(sed -nr "/^\[$1\]/ { :l /^token[ ]*=/ { s/[^=]*=[ ]*//; p; q;}; n; b l;}" ~/.carbonblack/credentials.cbc)
 echo "TOKEN=\"${TOKEN}\""

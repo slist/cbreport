@@ -1,31 +1,44 @@
 \section{Introduction}
 
-This is a sample report created from internal demo Kubernetes clusters.
+This is a security report created from your Kubernetes clusters protect by Carbon Black Container.
 
 \vskip15pt
 \par
 
-For more information about VMware products vulnerabilities, please visit:
+%For more information about VMware products vulnerabilities, please visit:
 
-\href{https://www.vmware.com/security/advisories.html}{VMware Security Advisories}
-
+%\href{https://www.vmware.com/security/advisories.html}{VMware Security Advisories}
 
 \section{Kubernetes clusters}
 
 This is the list of Kubernetes clusters protected by VMware Carbon Black Container.
 \vskip15pt
 
+\subsection{Kubernetes Clusters list}
 \verbfile{./cluster_list.txt}
+
+\subsection{Kubernetes Clusters diff}
+This is the diff of new or removed Kubernetes clusters since last report:
+\vskip10pt
+%\verbfile{./cluster_list_diff.txt}
+\input{clusterlistdiff}
 
 \section{Namespaces}
 
 This is the list of \gls{ns} protected by VMware Carbon Black Container.
 \vskip15pt
 
+\subsection{Namespaces list}
 \verbfile{./namespace_list.txt}
 
+\subsection{Namespaces list diff}
+This is the list of new or removed namespaces since last report:
+\vskip10pt
+%\verbfile{./namespace_list_diff.txt}
+\input{namespacelistdiff}
+
 \section{Container Registries}
-\subsection{Container Registries detected}
+\subsection{Container Registries list}
 This is the list of container Registries detected by VMware Carbon Black Container.
 \vskip15pt
 
@@ -33,22 +46,28 @@ This is the list of container Registries detected by VMware Carbon Black Contain
 
 \vskip15pt
 
-"docker.io" aka "Docker Hub" is the default container registry for Docker and Kubernetes.
+\subsection{Container Registries diff}
+This is the diff of new or removed container Registries since last report:
+\vskip10pt
+%\verbfile{./registry_list_diff.txt}
+\input{registrylistdiff}
 
-\subsection{About Docker Hub}
-\subsubsection{Docker Hub Rate limit}
-\href{https://tanzu.vmware.com/developer/guides/harbor-as-docker-proxy/}{How to use Harbor Registry to Eliminate Docker Hub Rate Limits}
+%"docker.io" aka "Docker Hub" is the default container registry for Docker and Kubernetes.
 
-\subsubsection{Docker Hub malicious container images}
+%\subsection{About Docker Hub}
+%\subsubsection{Docker Hub Rate limit}
+%\href{https://tanzu.vmware.com/developer/guides/harbor-as-docker-proxy/}{How to use Harbor Registry to Eliminate Docker Hub Rate Limits}
 
-\begin{quote}
-Over 1,600 publicly available Docker Hub images hide malicious behavior, including cryptocurrency miners, embedded secrets that can be used as backdoors, DNS hijackers, and website redirectors.
-\end{quote}
-\href{https://www.bleepingcomputer.com/news/security/docker-hub-repositories-hide-over-1-650-malicious-containers/}{source: Bleeping Computer}
+%\subsubsection{Docker Hub malicious container images}
 
-\begin{tipblock}
-Carbon Black Container can block Docker Hub usage. Some free open source container registries could be used, for example \href{https://goharbor.io/}{Harbor}.
-\end{tipblock}
+%\begin{quote}
+%Over 1,600 publicly available Docker Hub images hide malicious behavior, including cryptocurrency miners, embedded secrets that can be used as backdoors, DNS hijackers, and website redirectors.
+%\end{quote}
+%\href{https://www.bleepingcomputer.com/news/security/docker-hub-repositories-hide-over-1-650-malicious-containers/}{source: Bleeping Computer}
+
+%\begin{tipblock}
+%Carbon Black Container can block Docker Hub usage. Some free open source container registries could be used, for example \href{https://goharbor.io/}{Harbor}.
+%\end{tipblock}
 
 \section{Hardening Policies}
 %\noindent
@@ -71,86 +90,110 @@ This section list all security policies, and provides the number of exceptions a
 \end{importantblock}
 
 \section{Security alerts}
+
+Carbon Black container provides 3 types of alerts:
+\begin{enumerate}
+  \item Containers Runtime alerts
+  \item CB Analytics (Antivirus)
+  \item Watchlists (IOCs: Feeds and custom watchlists)
+\end{enumerate}
+
+\subsection{Containers Runtime alerts - Network}
 \noindent
 
-This is a summary of alerts reasons, for more details, please see VMware Carbon Black console:
+\input{runtimealert}
 \vskip10pt
-
-US: \href{https://defense-prod05.conferdeploy.net/}{https://defense-prod05.conferdeploy.net/}
-
-EU: \href{https://defense-eu.conferdeploy.net/}{https://defense-eu.conferdeploy.net/}
-
-NRT: \href{https://defense-prodnrt.conferdeploy.net/}{https://defense-prodnrt.conferdeploy.net/}
-
-\vskip10pt
-
-\begin{obeylines}
-\input{./alerts_reason.txt}
-\end{obeylines}
-
-
-\subsection{Alerts - Hardening - K8s Events}
-
-%Container running as \textbf{root} detected in your Kubernetes clusters.
-
-\subsection{Alerts - Network}
-\noindent
 
 %\textbf{Port scan} detected in your Kubernetes clusters.
-
-Connection to \textbf{malicious IP} :
-
 %\href{malware.com}{malware.com}
 
-\verbfile{./alerts_remoteip.txt}
+\noindent
+
+This is the list of runtime security alerts, for more details, please see VMware Carbon Black console.
+\vskip10pt
+
+\begin{table}[h!]
+	\centering
+	\begin{tabular}{ |p{15cm}|c| }
+		\hline
+		Alert reason & Alerts \\ 
+		\hline\hline
+		\input{alertreason}
+		%	\end{tabular} --> included in hardeningpolicies
+	\caption{Alert reasons.}
+\end{table}
+
+
+\begin{tipblock}
+	Alerts can be reduced by increasing training period (1, 2, 7 days) or by restarting the training after a new deployment.
+\end{tipblock}
 
 \begin{importantblock}
-If your Kubernetes cluster connects to a malicious IP, investigate! 
-\end{importantblock} 
+	Port scan and malicious reputation should be investigated.
+\end{importantblock}
 
-\subsection{Alerts - CNDR}
 
-CNDR = Cloud Native Detection and Response
 
-\paragraph{}
+%\input{alertreason}
 
-\textbf{CNDR} alerts are:
-\begin{itemize}
-	\item CB analytics (NGAV - Next Gen Anti Virus)
-	\item Watchlists (EEDR - Enterprise Endpoint Detection and Response)
-\end{itemize}
+%\begin{obeylines}
+%\input{./alerts_reason.txt}
+%\end{obeylines}
 
-xmrig detected in your Kubernetes clusters.
+\vskip10pt
+\input{alertsremoteip}
+
+\vskip10pt
+\input{alertsnamespace}
+
+%\begin{importantblock}
+%If your Kubernetes cluster connects to a malicious IP, investigate! 
+%\end{importantblock} 
+
+\subsection{CB analytics (NGAV - Next Gen Anti Virus)}
+This section lists all virus detected at runtime, in a container image or on the linux node.
+
+\subsection{Watchlists (EEDR - Enterprise Endpoint Detection and Response)}
+This section lists all IOCs detected at runtime, in a container image or on the linux node.
+
 
 \section{Malware and Secret Detection}
-\subsection{Malware}
-\noindent
+This section lists all virus and secrets detected in container images.
 
-TODO\\
-There is 0 malware in your Kubernetes clusters.
+\input{malware}
 
-\subsection{Secret Detection}
-\noindent
-
-TODO\\
-There is 0 secret in your Kubernetes clusters.
-
-\section{Critical vulnerabilities}
-
-Only container images with critical vulnerabilities will be listed below.
+\section{Vulnerabilities}
+There's always vulnerabilities in all software.\\
+The goal is to minimize the critical vulnerabilities (in Dark red)!
 
 %Vulnerabilities color code
-\definecolor{darkred}{RGB}{106,2,12}
-\definecolor{red}{RGB}{211,18,18}
-\definecolor{orange}{RGB}{253,136,36}
-\definecolor{yellow}{RGB}{255,202,58}
-\definecolor{lightgrey}{RGB}{187,199,204}
+%\definecolor{darkred}{RGB}{106,2,12}
+%\definecolor{red}{RGB}{211,18,18}
+%\definecolor{orange}{RGB}{253,136,36}
+%\definecolor{yellow}{RGB}{255,202,58}
+%\definecolor{lightgrey}{RGB}{187,199,204}
 
-\newtcbox{\criticalvulncbox}{colframe=darkred,colback=darkred,top=0pt,bottom=0pt,colupper=white}
-\newtcbox{\highvulncbox}{colframe=red,colback=red,top=0pt,bottom=0pt,colupper=white}
-\newtcbox{\mediumvulncbox}{colframe=orange,colback=orange,top=0pt,bottom=0pt,colupper=white}
-\newtcbox{\lowvulncbox}{colframe=yellow,colback=yellow,top=0pt,bottom=0pt}
-\newtcbox{\unknownvulncbox}{colframe=lightgrey,colback=lightgrey,top=0pt,bottom=0pt,colupper=white}
+\newtcbox{\criticalvulncbox}{colframe=VCRITICAL,colback=VCRITICAL,top=0pt,bottom=0pt,colupper=white}
+\newtcbox{\highvulncbox}{colframe=VHIGH,colback=VHIGH,top=0pt,bottom=0pt,colupper=white}
+\newtcbox{\mediumvulncbox}{colframe=VMEDIUM,colback=VMEDIUM,top=0pt,bottom=0pt,colupper=white}
+\newtcbox{\lowvulncbox}{colframe=VLOW,colback=VLOW,top=0pt,bottom=0pt}
+\newtcbox{\unknownvulncbox}{colframe=VUNKNOWN,colback=VUNKNOWN,top=0pt,bottom=0pt,colupper=white}
+
+
+\subsection{Vulnerabilities overview}
+This is an overview of vulnerabilities in container images running in your Kubernetes cluster:
+
+\input{vulnoverview}
+
+
+\subsection{Vulnerabilities histogram}
+
+TODO
+%\input{histo}]
+
+\subsection{Critical vulnerabilities}
+Only container images with critical vulnerabilities will be listed below.
+
 
 \vskip10pt
 
@@ -164,16 +207,12 @@ Color code:
 
 Example: 
 \criticalvulncbox{200/100} = 
-200 critical vulnerabilities / 100 critical vulnerabilities with fix available
+200 critical vulnerabilities / 100 critical vulnerabilities with a fix available.
 \par
 
 \begin{center}
 \rule{0.5\linewidth}{1pt}
 \end{center}
 
-
-%--------------------------
-% Critical
-%--------------------------
 \input{critical}
 

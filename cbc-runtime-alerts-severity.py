@@ -8,20 +8,12 @@ from cbc_sdk import CBCloudAPI
 # CBC ContainerRuntimeAlert
 from cbc_sdk.platform import ContainerRuntimeAlert
 
-argprofile = "default"
-
-if len(sys.argv) > 1:
-    argprofile = str(sys.argv[1])
-    if argprofile == "":
-        argprofile = "default"
-
-# API keys
-cb = CBCloudAPI(profile=argprofile)
+# API keys in ~/.carbonblack/credentials.cbc
+cb = CBCloudAPI(profile='default')
 
 # Get Container Runtime alerts from last 12 weeks
 alerts = cb.select(ContainerRuntimeAlert).set_time_range('last_update_time', range="-12w")
 
 for alert in alerts:
-    print(alert.cluster_name, alert.namespace, alert.reason)
+    print(alert.severity)
 
-#print(alert.cluster_name, alert.namespace, alert.reason, alert.rule_name)

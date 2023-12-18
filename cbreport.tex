@@ -2,14 +2,16 @@
 \documentclass[12pt,letterpaper]{report}
 \input{cbcommon}
 
-\begin{document}
+%\begin{document}
+%\chapter{executive report}
+%\newpage
 
 \thispagestyle{empty}
 \bannercbcontainer
-\title{VMware Carbon Black\\Executive Security report}
+\title{Carbon Black\\Executive Security report}
 \input{author}
-\department{IT Department}
-\cbinstance{CB Org: slist instance}
+\department{Security Team}
+\cbinstance{NordNet}
 \date{\today}
 \logocbcontainer
 
@@ -17,12 +19,23 @@
 \newpage
 
 \tableofcontents
-%\listoftables
+\listoftables
 \listoffigures
-%\newpage
 
-\chapter{Carbon Black Inventory}
-\input{cbinventory}
+\chapter{Introduction}
+
+This is an executive security report, for detailed information, please visit your console.
+\vspace{1cm}
+
+US: \href{https://defense-prod05.conferdeploy.net/}{https://defense-prod05.conferdeploy.net/}
+
+EU: \href{https://defense-eu.conferdeploy.net/}{https://defense-eu.conferdeploy.net/}
+
+NRT: \href{https://defense-prodnrt.conferdeploy.net/}{https://defense-prodnrt.conferdeploy.net/}
+
+
+%\chapter{Carbon Black Inventory}
+%\input{cbinventory}
 
 \chapter{Carbon Black Container security}
 \input{cbcontainer}
@@ -34,9 +47,9 @@
 %\input{cbauditlog}
 
 % Glossary
-\newpage
+%\newpage
 
-\printglossaries
+%\printglossaries
 
 % Last page
 \newpage

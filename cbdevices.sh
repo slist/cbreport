@@ -79,6 +79,9 @@ sed -i '/^$/d' devices_sensorversion_sorted.txt
 
 # Compute height of bargraph
 number_of_items=$(wc -l < devices_sensorversion_sorted.txt)
+
+if (( number_of_items > 0 ))
+then
 height=$((40 + 20 * number_of_items))
 
 # [H] is to force the figure to be in line with the text
@@ -110,6 +113,7 @@ echo -E "\end{tikzpicture}" >>${TEX_FILE_DEVICES_SENSOR_VERSION}
 echo -E "\caption{Linux sensor versions for active devices}" >>${TEX_FILE_DEVICES_SENSOR_VERSION}
 echo -E "\end{figure}" >>${TEX_FILE_DEVICES_SENSOR_VERSION}
 echo "" >>${TEX_FILE_DEVICES_SENSOR_VERSION}
+fi
 
 #####################################################################################################################
 echo "--> Get Sensor version : WINDOWS"
@@ -123,6 +127,8 @@ sed -i '/^$/d' devices_sensorversion_sorted.txt
 
 # Compute height of bargraph
 number_of_items=$(wc -l < devices_sensorversion_sorted.txt)
+if (( number_of_items > 0 ))
+then
 height=$((40 + 20 * number_of_items))
 
 # [H] is to force the figure to be in line with the text
@@ -162,6 +168,7 @@ echo -E "\caption{Windows sensor versions for active devices}" >>${TEX_FILE_DEVI
 echo -E "\end{figure}" >>${TEX_FILE_DEVICES_SENSOR_VERSION}
 echo "" >>${TEX_FILE_DEVICES_SENSOR_VERSION}
 
+fi
 # TODO : MAC
 
 #####################################################################################################################
@@ -170,7 +177,8 @@ echo "--> Get  OS version"
 sed -i 's/Server\ 2008/Windows\ Server\ 2008/g' ${FILE_DEVICES_CSV}
 sed -i 's/Server\ 2012/Windows\ Server\ 2012/g' ${FILE_DEVICES_CSV}
 
-tail -n +2 ${FILE_DEVICES_CSV} | cut -f 16 -d ,  |  sed 's/"//g' >devices_osversion.txt
+# Remove parenthesis, to fix Latex plot error with OS "Linux (Unsupported)"
+tail -n +2 ${FILE_DEVICES_CSV} | cut -f 16 -d ,  |  sed 's/"//g' | sed 's/[)(]//g' >devices_osversion.txt
 
 # Reverse sort, as they will start from bottom on Y axis.
 sort -r devices_osversion.txt |uniq >devices_osversion_sorted.txt
@@ -178,8 +186,13 @@ sort -r devices_osversion.txt |uniq >devices_osversion_sorted.txt
 #Remove blank lines
 sed -i '/^$/d' devices_osversion_sorted.txt
 
+rm -f ${TEX_FILE_DEVICES_OS_VERSION}
+touch ${TEX_FILE_DEVICES_OS_VERSION}
 # Compute height of bargraph
 number_of_items=$(wc -l < devices_osversion_sorted.txt)
+if (( number_of_items > 0 ))
+then
+
 height=$((40 + 20 * number_of_items))
 
 # [H] is to force the figure to be in line with the text
@@ -211,6 +224,6 @@ echo -E "\end{tikzpicture}" >>${TEX_FILE_DEVICES_OS_VERSION}
 echo -E "\caption{OS versions for active devices}" >>${TEX_FILE_DEVICES_OS_VERSION}
 echo -E "\end{figure}" >>${TEX_FILE_DEVICES_OS_VERSION}
 echo "" >>${TEX_FILE_DEVICES_OS_VERSION}
-
+fi
 exit 0 # End
 

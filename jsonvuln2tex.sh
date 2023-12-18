@@ -22,10 +22,14 @@ let num_found-=1
 for i in `seq 0 ${num_found}`; do
 	echo ""
 	echo ""
-	jq ".results | .[${i}] | .registry" $jsonfile |sed -z 's/\"//g'
-	jq ".results | .[${i}] | .repo" $jsonfile |sed -z 's/\"//g'
-	jq ".results | .[${i}] | .tag" $jsonfile |sed -z 's/\"//g'
+#	jq ".results | .[${i}] | .registry" $jsonfile |sed -z 's/\"//g' | sed -z 's/\n//g'
+#	echo -n "/"
+#	jq ".results | .[${i}] | .repo" $jsonfile |sed -z 's/\"//g' | sed -z 's/\n//g'
+#	echo -n ":"
+#	jq ".results | .[${i}] | .tag" $jsonfile |sed -z 's/\"//g'
 
+	jq ".results | .[${i}] | .full_tag" $jsonfile |sed -z 's/\"//g'
+	echo "\\\\"
 
 	echo -n "\\criticalvulncbox{"
 	jq ".results | .[${i}] | .vulnerabilities_summary | .CRITICAL | .amount" $jsonfile | sed -z 's/\n//g'
@@ -54,6 +58,8 @@ for i in `seq 0 ${num_found}`; do
 	echo -n "/"
 	jq ".results | .[${i}] | .vulnerabilities_summary | .LOW | .fixes" $jsonfile | sed -z 's/\n//g'
 	echo "}"
+
+	echo "\\vskip15pt"
 
 done
 

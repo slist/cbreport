@@ -8,6 +8,9 @@
 \usepackage{awesomebox}
 \usepackage{float} %To be able to use H on figure to force position. See https://tex.stackexchange.com/questions/16207/image-from-includegraphics-showing-up-in-wrong-location
 
+\usepackage{pgfplots} % For histogram
+\usepgfplotslibrary{dateplot}
+
 \usepackage[toc,section=section]{glossaries}
 \input{cbglossary}
 \makeglossaries
@@ -23,6 +26,11 @@ anchorcolor = blue]{hyperref}
 
 \usepackage{pgfplots}
 \usepackage{pgfplotstable}
+
+%To be able to write --- !
+%Only available in pdftex!
+%\usepackage{microtype}
+%\DisableLigatures[-]{}
 
 %
 % These colour codes are taken from the RGB swatches in Brand Central.
@@ -42,6 +50,13 @@ anchorcolor = blue]{hyperref}
 \definecolor{vmwAqua}{HTML}{00C1D5}
 
 \definecolor{darkblue}{HTML}{0070E0}
+
+%Vulnerabilities color code
+\definecolor{VCRITICAL}{RGB}{106,2,12} %darkred
+\definecolor{VHIGH}{RGB}{211,18,18} %red
+\definecolor{VMEDIUM}{RGB}{253,136,36} %orange
+\definecolor{VLOW}{RGB}{255,202,58} %yellow
+\definecolor{VUNKNOWN}{RGB}{187,199,204} %lightgrey
 
 % Use VMware font : Metropolis
 \usepackage{fontspec}
@@ -111,6 +126,16 @@ anchorcolor = blue]{hyperref}
 		e/.style={rounded corners, fill=vmwOcean, font={\sffamily\bfseries\Huge}, text=white, align=center, minimum width=130pt, text height=22pt},
 		f/.style={rounded corners, fill=vmwLeaf, font={\sffamily\bfseries\large}, text=white, align=center, minimum width=130pt, text height=15pt},
 		]
+		\node(c)[e]{#1}; % Top = Blue = Ocean
+		\node(d)[f]at(c.south)[yshift=-12pt]{#2}; % Bottom = Leaf = Green
+	\end{tikzpicture}
+}
+
+\newcommand{\nicevuln}[3]{
+	\begin{tikzpicture}[
+		e/.style={rounded corners, fill=vmwOcean, font={\sffamily\bfseries\Huge}, text=white, align=center, minimum width=104pt, text height=22pt},
+		f/.style={rounded corners, fill=#3, font={\sffamily\bfseries\large}, text=white, align=center, minimum width=104pt, text height=15pt},
+		]
 		\node(c)[e]{#1};
 		\node(d)[f]at(c.south)[yshift=-12pt]{#2};
 	\end{tikzpicture}
@@ -152,7 +177,7 @@ anchorcolor = blue]{hyperref}
 
 \newcommand{\bannercbcontainer}[0]{
 	\begin{tikzpicture}[remember picture,overlay]
-		\node[anchor=north west, inner sep=0pt] at (current page.north west){\includegraphics[width=\paperwidth]{cbbanner.jpg}};
+		\node[anchor=north west, inner sep=0pt] at (current page.north west){\includegraphics[width=\paperwidth]{cbbanner.png}};
 	\end{tikzpicture}
 }
 
