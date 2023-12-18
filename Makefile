@@ -17,6 +17,10 @@ first:
 	-xelatex -synctex=1 -interaction=nonstopmode cbreport.tex
 	xpdf cbreport.pdf &
 
+# Generate a report every first day of month, modify using "crontab -e".
+.PHONY: crontab
+	./crontab.sh
+
 .PHONY: example
 example:
 #	Copy txt and tex files from example directory
