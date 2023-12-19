@@ -9,7 +9,7 @@ fi
 if [ "$1" = "-l" ]
 then
 	grep "\[" ~/.carbonblack/credentials.cbc
-	exit 0
+	exit 0 # End
 fi
 
 
@@ -26,6 +26,8 @@ URL=$(sed -nr "/^\[$1\]/ { :l /^url[ ]*=/ { s/[^=]*=[ ]*//; p; q;}; n; b l;}" ~/
 SERVER=$(
   case "${URL}" in
 	  ("https://defense.conferdeploy.net") echo "prod05" ;;
+	  ("https://defense-prod05.conferdeploy.net") echo "prod05" ;;
+	  ("https://defense-prod06.conferdeploy.net") echo "prod06" ;;
 	  ("https://defense-eu.conferdeploy.net") echo "prod06" ;;
 	  (*) echo "unknown URL" ;;
   esac)

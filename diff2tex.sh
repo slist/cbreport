@@ -8,12 +8,12 @@ if [ -z "$1" ]
     echo "Error: No argument supplied"
     echo ""
     echo "Syntax: $0 <diff filename>"
-    exit -1
+    exit -1 # No arg
 fi
 
 if [ ! -f "$1" ]; then
     echo "File $1 does not exist."
-    exit -1
+    exit -1 # File does not exist
 fi
 
 
@@ -33,7 +33,7 @@ do
 	fi
 done < $1
 
-exit 0
+exit 0 # End
 
 #Convert character to escaped charecter for Latex:
             "#"=>"\\#",

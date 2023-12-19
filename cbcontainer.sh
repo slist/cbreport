@@ -76,7 +76,14 @@ for i in `seq 0 ${num_found}`; do
 done
 comment
 
-rm -f ${TEX_FILE_HARDENING_POLICIES}
+
+echo "\\begin{table}[h!]" >${TEX_FILE_HARDENING_POLICIES}
+echo "\\centering" >>${TEX_FILE_HARDENING_POLICIES}
+echo "\\begin{tabular}{ |c|c|c|c| }" >>${TEX_FILE_HARDENING_POLICIES}
+echo "\\hline" >>${TEX_FILE_HARDENING_POLICIES}
+echo "Policy name & Scope & Exceptions & Violations \\\\" >>${TEX_FILE_HARDENING_POLICIES}
+echo "\\hline\\hline" >>${TEX_FILE_HARDENING_POLICIES}
+
 for i in `seq 0 ${num_found}`; do
 	jq ".items | .[${i}] | .name" ${FILE_HARDENING_POLICIES} | sed 's/"//g' | tr -d '\n' >>${TEX_FILE_HARDENING_POLICIES}
 	echo -n " & " >>${TEX_FILE_HARDENING_POLICIES}
@@ -90,11 +97,12 @@ for i in `seq 0 ${num_found}`; do
 	jq ".items | .[${i}] | .violations_count" ${FILE_HARDENING_POLICIES} | sed 's/null/0/g' | tr -d '\n' >>${TEX_FILE_HARDENING_POLICIES}
 	echo "\\\\" >>${TEX_FILE_HARDENING_POLICIES}
 	echo "\\hline" >>${TEX_FILE_HARDENING_POLICIES}
-
-	#policy_id=$(jq ".items | .[${i}] | .policy_id" ${FILE_HARDENING_POLICIES} | sed 's/"//g')
-	#echo ${policy_id}
 done
+
 echo "\\end{tabular}" >>${TEX_FILE_HARDENING_POLICIES}
+echo "\\caption{Hardening policies.}" >>${TEX_FILE_HARDENING_POLICIES}
+echo "\\end{table}" >>${TEX_FILE_HARDENING_POLICIES}
+
 
 # Get Kubernetes cluster list
 curl -H X-Auth-Token:${TOKEN} https://api-${SERVER}.conferdeploy.net/containers/v1beta/orgs/${ORG}/inventory/overview/metadata >${FILE_METADATA} 2>/dev/null
@@ -221,18 +229,26 @@ echo ""
 ./cbc-alerts-reason.py ${CRED_ENTRY} |sort |uniq >alerts_reason.txt
 cat alerts_reason.txt | awk '{$1=""; $2=""; sub(" ", " "); print}' |sort |uniq >reasons.txt
 
-echo -n "Found "
-cat reasons.txt |wc -l
+num_found=$(cat reasons.txt |wc -l)
+echo -n "Found ${num_found}"
 
-rm -f ${TEX_FILE_ALERT_REASON}
+echo "\\begin{table}[h!]" >${TEX_FILE_ALERT_REASON}
+echo "\\centering" >>${TEX_FILE_ALERT_REASON}
+echo "\\begin{tabular}{ |p{15cm}|c| }" >>${TEX_FILE_ALERT_REASON}
+echo "\\hline" >>${TEX_FILE_ALERT_REASON}
+echo "Alert reason & Alerts \\\\" >>${TEX_FILE_ALERT_REASON}
+echo "\\hline\\hline" >>${TEX_FILE_ALERT_REASON}
+
 while read -r reason; do
 	echo -n "$reason & " |sed 's/malicious reputation/\\textbf{malicious reputation}/g' |sed 's/port scan/\\textbf{port scan}/g' >>${TEX_FILE_ALERT_REASON}
 	grep -c "$reason" alerts_reason.txt |tr -d "\n"  >>${TEX_FILE_ALERT_REASON}
 	echo " \\\\" >>${TEX_FILE_ALERT_REASON}
 	echo "\\hline" >>${TEX_FILE_ALERT_REASON}
 done < reasons.txt
-echo "\\end{tabular}" >>${TEX_FILE_ALERT_REASON}
 
+echo "\\end{tabular}" >>${TEX_FILE_ALERT_REASON}
+echo "\\caption{Alert reasons.}" >>${TEX_FILE_ALERT_REASON}
+echo "\\end{table}" >>${TEX_FILE_ALERT_REASON}
 
 echo ""
 echo "-----------------------------------"
@@ -266,7 +282,7 @@ if [ -s alerts_remoteip.txt ]; then
 	while read line; do echo "\\item $line" >>alertsremoteip.tex; done < alerts_remoteip.txt
 	echo "\\end{enumerate}" >>alertsremoteip.tex
 else
-	echo "" >>alertsremoteip.tex
+	echo "" >alertsremoteip.tex
 fi
 
 ./cbc-alerts-namespace.py ${CRED_ENTRY} |sort |uniq >alerts_namespace.txt
@@ -276,7 +292,7 @@ if [ -s alerts_namespace.txt ]; then
 	while read line; do echo "\\item $line" >>alertsnamespace.tex; done < alerts_namespace.txt
 	echo "\\end{enumerate}" >>alertsnamespace.tex
 else
-	echo "" >>alertsnamespace.tex
+	echo "" >alertsnamespace.tex
 fi
 
 

@@ -19,31 +19,31 @@ Info: Some Linux devices may be Kubernetes nodes, \gls{cndr} automatically prote
 
 For a complete list of supported operating systems, see \href{https://docs.vmware.com/en/VMware-Carbon-Black-Cloud/services/cbc-endpoint-standard-oer/GUID-45BFDC75-748B-4E05-8B38-190B59204D0B.html}{VMware Docs}.\\
 
-%\newpage
+\newpage
 
-%\section{Active devices OS versions}
+\section{Active devices OS versions}
 
-%Only \gls{active} devices:
+Only \gls{active} devices:
 
-%\input{devices_os_version}
+\input{devices_os_version}
 
-%\section{Active devices sensor versions}
+\section{Active devices sensor versions}
 
-%Read this \href{https://carbonblack.vmware.com/resource/secure-carbon-black-cloud-updates}{article} to understand how to secure Carbon Black updates.\\
-%\\
-%Only \gls{active} devices:
+Read this \href{https://carbonblack.vmware.com/resource/secure-carbon-black-cloud-updates}{article} to understand how to secure Carbon Black updates.\\
+\\
+Only \gls{active} devices:
 
-%\input{devices_sensor_version}
+\input{devices_sensor_version}
 
-%\section{Active devices target values}
+\section{Active devices target values}
 
-%Only \gls{active} devices are shown:
+Only \gls{active} devices are shown:
 
-%\input{devices_targetvalues}
+\input{devices_targetvalues}
 
-%\begin{tipblock}
-%Hint: Your active directory server, database.. and all your critical assets should be in "MISSION CRITICAL" target value. The alert score will be increased based on the target value !
-%\end{tipblock}
+\begin{tipblock}
+Hint: Your active directory server, database.. and all your critical assets should be in "MISSION CRITICAL" target value. The alert score will be increased based on the target value !
+\end{tipblock}
 
 
 \section{Active devices quarantined}
@@ -60,6 +60,15 @@ Only \gls{active} devices are shown:
 	\href{https://community.carbonblack.com/t5/Knowledge-Base/Endpoint-Standard-What-happens-when-a-Device-is-placed-in/ta-p/71741}{What happens when a Device is placed in Quarantine?}
 \end{tipblock}
 
+\section{Devices in bypass}
+
+\input{devices_bypass}
+
+\verbfile{devices_bypass.txt}
+
+\begin{tipblock}
+A device can be in BYPASS following an admin action, an API call, or because the OS is not supported.
+\end{tipblock}
 
 \section{Active devices sensor out of date}
 

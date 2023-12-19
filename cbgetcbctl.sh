@@ -24,7 +24,7 @@ if [ "$cbctl_sha256" = "$cbctl_sha2" ]; then
 	echo "(will ask your password soon)"
 else
 	echo "SHA256 is NOT correct! Try again."
-	exit 1
+	exit 1 # SHA256 error
 fi
 
 chmod +x cbctl
@@ -32,3 +32,4 @@ sudo rm -f /usr/local/bin/cbctl /usr/local/bin/cbctl_${cbctl_version}
 sudo mv cbctl /usr/local/bin/cbctl_${cbctl_version}
 sudo ln -s /usr/local/bin/cbctl_${cbctl_version} /usr/local/bin/cbctl
 
+exit 0 #End

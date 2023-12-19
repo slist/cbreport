@@ -3,15 +3,32 @@
 source config.sh
 
 FILE_DEVICES_CSV="devices.csv"
+FILE_DEVICES_BYPASS_CSV="devices_bypass.csv"
+FILE_DEVICES_BYPASS_TXT="devices_bypass.txt"
+
 TEX_FILE_DEVICES_TARGETVALUES="devices_targetvalues.tex"
 TEX_FILE_DEVICES_OS="devices_os.tex"
 TEX_FILE_DEVICES_OS_VERSION="devices_os_version.tex"
 TEX_FILE_DEVICES_SENSOR_VERSION="devices_sensor_version.tex"
 TEX_FILE_DEVICES_SENSOR_OUTOFDATE="devices_sensor_outofdate.tex"
 TEX_FILE_DEVICES_QUARANTINED="devices_quarantined.tex"
+TEX_FILE_DEVICES_BYPASS="devices_bypass.tex"
 
 echo "Download active devices list"
 curl -H X-Auth-Token:${TOKEN} https://api-${SERVER}.conferdeploy.net/appservices/v6/orgs/${ORG}/devices/_search/download?status=active >${FILE_DEVICES_CSV} 2>/dev/null
+
+echo "Download bypass devices list"
+curl -H X-Auth-Token:${TOKEN} https://api-${SERVER}.conferdeploy.net/appservices/v6/orgs/${ORG}/devices/_search/download?status=bypass >${FILE_DEVICES_BYPASS_CSV} 2>/dev/null
+
+#Create list of devices in bypass
+tail -n +2 ${FILE_DEVICES_BYPASS_CSV}  | cut -f 1 -d , |  sed 's/"//g' >${FILE_DEVICES_BYPASS_TXT}
+echo -n "Found "
+cat ${FILE_DEVICES_BYPASS_TXT} | wc -l | tr -d '\n'
+echo " devices in BYPASS"
+
+echo -n "\\nicecounter{" >${TEX_FILE_DEVICES_BYPASS}
+cat ${FILE_DEVICES_BYPASS_TXT} | wc -l | tr -d '\n' >>${TEX_FILE_DEVICES_BYPASS}
+echo "}{Devices in BYPASS}" >>${TEX_FILE_DEVICES_BYPASS}
 
 #####################################################################################################################
 
@@ -46,8 +63,7 @@ done
 echo "--> Get quarantined"
 tail -n +2 ${FILE_DEVICES_CSV} | cut -f 25 -d ,  |  sed 's/"//g' >devices_quarantined.txt
 
-rm -f ${TEX_FILE_DEVICES_QUARANTINED}
-echo -n "\\nicecounter{" >>${TEX_FILE_DEVICES_QUARANTINED}
+echo -n "\\nicecounter{" >${TEX_FILE_DEVICES_QUARANTINED}
 grep -c "true" devices_quarantined.txt | tr -d '\n' >>${TEX_FILE_DEVICES_QUARANTINED}
 echo "}{Quarantined devices}" >>${TEX_FILE_DEVICES_QUARANTINED}
 
