@@ -10,10 +10,7 @@ first:
 	./cbdevices.sh
 	./cbauditlog.sh
 #	Get all cmdline from alerts
-	./cbc-alerts-cmdline.py ${org} |sort |uniq >alerts_cmdline.txt
-	./cbc-alerts-ngav.py ${org} |sort |uniq >alerts_ngav.txt
-	./cbc-alerts-stopped.py ${org} >alerts_stopped.txt
-	./cbc-alerts-detected.py ${org} >alerts_detected.txt
+	./cbalerts.sh
 #	cbcontainer.sh will add K8s info in devices.tex, so it must be after devices.sh
 	./cbcontainer.sh
 # 	Create AUX file for glossary and TOC
@@ -56,7 +53,6 @@ clean:
 	 alerts_reason.txt reasons.txt cbctl alertreason.tex high.tex \
 	 vulnoverview.tex registrylistdiff.tex *.old namespacelistdiff.tex \
 	 clusterlistdiff.tex malware.tex runtimealert.tex alertsnamespace.tex \
-	 alertsremoteip.tex devices_bypass.tex
-
-
+	 alertsremoteip.tex devices_bypass.tex alertstopped.tex \
+	 alertdetected.tex alertwatchlist.tex
 

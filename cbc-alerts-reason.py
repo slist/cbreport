@@ -23,5 +23,3 @@ alerts = cb.select(ContainerRuntimeAlert).set_time_range('last_update_time', ran
 
 for alert in alerts:
     print(alert.cluster_name, alert.namespace, alert.reason)
-
-#print(alert.cluster_name, alert.namespace, alert.reason, alert.rule_name)

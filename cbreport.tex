@@ -39,16 +39,28 @@ NRT: \href{https://defense-prodnrt.conferdeploy.net/}{https://defense-prodnrt.co
 \input{cbinventory}
 
 \chapter{Alerts}
+\section{CB NGAV Analytics - Alerts overview}
+Only alerts with severity=3+ are analyzed, alerts with lower priorities are used for threat hunting.
+\vskip10pt
+Statistics for the past month:\\
+\input{alertstopped}
+\input{alertdetected}
+
 \section{Command lines}
-This is the list of command lines that have created alerts:\\
+This is the list of command lines that have created alerts (Severity = 3+):\\
 \\
 \verbfile{alerts_cmdline.txt}
-
 
 \section{Alert reasons}
 This is the list of alert's reason:\\
 \\
 \verbfile{alerts_ngav.txt}
+
+\section{EDR - Feeds and Watchlists alerts}
+Only alerts with severity=3+ are analyzed, alerts with lower priorities are used for threat hunting.
+\vskip10pt
+Statistics for the past month:\\
+\input{alertwatchlist}
 
 \chapter{Carbon Black Container security}
 \input{cbcontainer}
