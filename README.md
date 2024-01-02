@@ -4,14 +4,15 @@
 
 ``` sh
 sudo apt update -y
-sudo apt install git pip wget curl unzip xpdf python3
-sudo apt install texlive-latex-base texlive-latex-extra texlive-fonts-recommended texlive-fonts-extra texlive-bibtex-extra texlive-binaries texstudio texlive-full
+sudo apt install -y make git pip wget curl unzip xpdf python3
+sudo apt install -y texlive-latex-base texlive-latex-extra texlive-fonts-recommended texlive-fonts-extra texlive-bibtex-extra texlive-binaries texstudio texlive-full
 ```
 
 # Download Metropolis font
 ``` sh
 wget https://www.1001fonts.com/download/metropolis.zip
-unzip metropolis.zip
+mkdir metropolis
+unzip -d metropolis metropolis.zip
 ```
 
 # Install Metropolis font in Ubuntu
