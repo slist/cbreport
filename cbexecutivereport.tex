@@ -1,0 +1,115 @@
+\documentclass[12pt,letterpaper,twocolumn]{report}
+\usepackage[landscape]{geometry}
+\usepackage{tikz}
+
+\geometry{hmargin=0.5cm,vmargin=0.5cm}
+
+% Primary colours
+\definecolor{vmwOcean}{HTML}{0091DA}
+\definecolor{vmwLeaf}{HTML}{78BE20}
+\definecolor{vmwIndigo}{HTML}{1D428A}
+
+
+\newcommand{\nicecounter}[2]{
+        \begin{tikzpicture}[
+                e/.style={rounded corners, fill=vmwOcean, font={\sffamily\bfseries\Huge}, text=white, align=center, minimum width=70pt, text height=22pt},
+                f/.style={rounded corners, fill=vmwLeaf, font={\sffamily\bfseries\normalsize}, text=white, align=center, minimum width=70pt, text height=15pt},
+                ]
+                \node(c)[e]{#1}; % Top = Blue = Ocean
+                \node(d)[f]at(c.south)[yshift=-12pt]{#2}; % Bottom = Leaf = Green
+        \end{tikzpicture}
+}
+
+%Vulnerabilities color code
+\definecolor{VCRITICAL}{RGB}{106,2,12} %darkred
+\definecolor{VHIGH}{RGB}{211,18,18} %red
+\definecolor{VMEDIUM}{RGB}{253,136,36} %orange
+\definecolor{VLOW}{RGB}{255,202,58} %yellow
+\definecolor{VUNKNOWN}{RGB}{187,199,204} %lightgrey
+
+\newcommand{\nicevuln}[3]{
+        \begin{tikzpicture}[
+                e/.style={rounded corners, fill=vmwOcean, font={\sffamily\bfseries\Huge}, text=white, align=center, minimum width=74pt, text height=22pt},
+                f/.style={rounded corners, fill=#3, font={\sffamily\bfseries\large}, text=white, align=center, minimum width=74pt, text height=15pt},
+                ]
+                \node(c)[e]{#1};
+                \node(d)[f]at(c.south)[yshift=-12pt]{#2};
+        \end{tikzpicture}
+}
+
+
+\usepackage[most]{tcolorbox}
+
+\begin{document}
+\thispagestyle{empty}
+\title{Carbon Black\\Executive Security report}
+
+\parindent=0cm
+
+\Large
+Carbon Black Executive Report - MHCG\\
+\normalsize
+\today
+\Large
+
+%\setlength{\columnseprule}{1pt}
+%\def\columnseprulecolor{\color{blue}}
+
+\begin{center}
+
+\tcbset{on line,
+        boxsep=4pt, left=0pt,right=0pt,top=0pt,bottom=0pt,
+        colframe=red,colback=red!15!
+        }
+
+\tcbox{\parbox{\dimexpr0.6\linewidth\fboxsep-2\fboxrule\relax}{\centering \input{alertstopped}\input{alertdetected}  \\ NextGen Antivirus alerts}}%
+\hskip10pt
+\tcbox{\parbox{\dimexpr0.3\linewidth\fboxsep-2\fboxrule\relax}{\centering \input{alertwatchlist}  \\ EDR alerts}}%
+
+\vskip15pt
+
+\input{devices_os}\\
+OS Distribution\\
+\vskip15pt
+
+\input{devices_targetvalues}
+\\
+Target value\\
+\vskip15pt
+
+\input{devices_sensor_outofdate}
+\input{devices_bypass}
+\input{devices_quarantined}
+\\
+Sensor's status
+\end{center}
+
+\newpage
+
+\Large
+Kubernetes report
+
+\vskip30pt
+
+
+\begin{center}
+\tcbset{
+        boxsep=4pt, left=0pt,right=0pt,top=0pt,bottom=0pt,
+        colframe=red,colback=red!15!
+        }
+
+%\tcbox{\parbox{\dimexpr0.6\linewidth-8\fboxsep-1\fboxrule\relax}{\centering \input{alertstopped}\input{alertdetected}  \\ NextGen Antivirus alerts}}%
+
+\tcbox{\parbox{\dimexpr\linewidth-8\fboxsep-1\fboxrule\relax}{\centering \input{runtimealert}  \\ Network runtime alerts}}
+
+\vskip15pt
+\input{malwareoverview}\\
+Container image content
+\vskip15pt
+
+\vskip15pt
+\input{vulnoverviewexec}
+Container image vulnerabilities
+
+\end{center}
+\end{document}

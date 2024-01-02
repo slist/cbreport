@@ -34,9 +34,14 @@ TEX_FILE_HARDENING_POLICIES="hardeningpolicies.tex"
 TEX_FILE_CRITICAL="critical.tex"
 TEX_FILE_HIGH="high.tex"
 TEX_FILE_MALWARE="malware.tex"
+TEX_FILE_MALWARE_OVERVIEW="malwareoverview.tex"
+
+TOTAL_MALWARE_COUNT=0
+TOTAL_SECRET_COUNT=0
 
 TEX_FILE_ALERT_REASON="alertreason.tex"
 TEX_FILE_VULN_OVERVIEW="vulnoverview.tex"
+TEX_FILE_VULN_OVERVIEW_EXEC="vulnoverviewexec.tex"
 TEX_FILE_RUNTIME_ALERT="runtimealert.tex"
 
 
@@ -164,6 +169,16 @@ do
     echo "}{${sev}}{V${sev}}" >> ${TEX_FILE_VULN_OVERVIEW}
 done
 
+#Exec don't like "Unknown" ;-)
+rm -f ${TEX_FILE_VULN_OVERVIEW_EXEC}
+for sev in CRITICAL HIGH MEDIUM LOW
+do
+    echo -n "\\nicevuln{" >> ${TEX_FILE_VULN_OVERVIEW_EXEC}
+    jq ".severity_summary | .${sev} | .vulnerabilities" org_summary.json | tr -d '\n' >> ${TEX_FILE_VULN_OVERVIEW_EXEC}
+    echo "}{${sev}}{V${sev}}" >> ${TEX_FILE_VULN_OVERVIEW_EXEC}
+done
+
+
 #echo "" >> ${TEX_FILE_VULN_OVERVIEW}
 #echo "\\vskip5pt" >> ${TEX_FILE_VULN_OVERVIEW}
 
@@ -270,10 +285,10 @@ echo "Found " ${MEDIUM} " medium runtime alerts(3.4.5)"
 echo "Found " ${HIGH} " high runtime alerts(6,7,8)"
 echo "Found " ${CRITICAL} " critical runtime alerts(9,10)"
 
-echo "\\nicevuln{${CRITICAL}}{CRITICAL}{VCRITICAL}" >${TEX_FILE_RUNTIME_ALERT}
-echo "\\nicevuln{${HIGH}}{HIGH}{VHIGH}" >>${TEX_FILE_RUNTIME_ALERT} 
-echo "\\nicevuln{${MEDIUM}}{MEDIUM}{VMEDIUM}" >>${TEX_FILE_RUNTIME_ALERT}
-echo "\\nicevuln{${LOW}}{LOW}{VLOW}" >>${TEX_FILE_RUNTIME_ALERT}
+echo "\\nicevuln{${CRITICAL}}{Critical}{VCRITICAL}" >${TEX_FILE_RUNTIME_ALERT}
+echo "\\nicevuln{${HIGH}}{High}{VHIGH}" >>${TEX_FILE_RUNTIME_ALERT}
+echo "\\nicevuln{${MEDIUM}}{Medium}{VMEDIUM}" >>${TEX_FILE_RUNTIME_ALERT}
+echo "\\nicevuln{${LOW}}{Low}{VLOW}" >>${TEX_FILE_RUNTIME_ALERT}
 
 ./cbc-alerts-remoteip.py ${CRED_ENTRY} >alerts_remoteip.txt
 if [ -s alerts_remoteip.txt ]; then
@@ -455,6 +470,10 @@ EOF
 	MALWARE_COUNT=$(jq '[ .results | .[] | select(.has_malware == true) ] | length' ${cluster}_${FILE_DEPLOYED})
 	SECRET_COUNT=$(jq '[ .results | .[] | select(.has_secret == true) ] | length' ${cluster}_${FILE_DEPLOYED})
 
+
+	TOTAL_MALWARE_COUNT=$(($TOTAL_MALWARE_COUNT + $MALWARE_COUNT))
+	TOTAL_SECRET_COUNT=$(($TOTAL_SECRET_COUNT + $SECRET_COUNT))
+
 	echo "-------------------------------------------"
 	echo "Get Malwares and secrets in deployed images"
 	echo "-------------------------------------------"
@@ -482,6 +501,15 @@ EOF
 	fi
 
 done < ${FILE_CLUSTER_LIST}
+
+
+echo "\\nicevuln{${TOTAL_MALWARE_COUNT}}{Malware}{VHIGH}" > ${TEX_FILE_MALWARE_OVERVIEW}
+echo "\\nicevuln{${TOTAL_SECRET_COUNT}}{Secret}{VMEDIUM}" >> ${TEX_FILE_MALWARE_OVERVIEW}
+
+sed -i -e "s/{CRITICAL}/{Critical}/g" ${TEX_FILE_VULN_OVERVIEW_EXEC}
+sed -i -e "s/{HIGH}/{High}/g" ${TEX_FILE_VULN_OVERVIEW_EXEC}
+sed -i -e "s/{MEDIUM}/{Medium}/g" ${TEX_FILE_VULN_OVERVIEW_EXEC}
+sed -i -e "s/{LOW}/{Low}/g" ${TEX_FILE_VULN_OVERVIEW_EXEC}
 
 # Clean up
 rm ${FILE_REQUEST}

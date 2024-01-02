@@ -19,6 +19,8 @@ first:
 #	Create PDF with glossary included
 	-xelatex -synctex=1 -interaction=nonstopmode cbreport.tex
 	xpdf cbreport.pdf &
+	-xelatex -synctex=1 -interaction=nonstopmode cbexecutivereport.tex
+	xpdf cbexecutivereport.pdf
 
 # Generate a report every first day of month, modify using "crontab -e".
 .PHONY: crontab

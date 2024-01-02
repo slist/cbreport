@@ -28,7 +28,7 @@ echo " devices in BYPASS"
 
 echo -n "\\nicecounter{" >${TEX_FILE_DEVICES_BYPASS}
 cat ${FILE_DEVICES_BYPASS_TXT} | wc -l | tr -d '\n' >>${TEX_FILE_DEVICES_BYPASS}
-echo "}{Devices in BYPASS}" >>${TEX_FILE_DEVICES_BYPASS}
+echo "}{Devices in Bypass}" >>${TEX_FILE_DEVICES_BYPASS}
 
 #####################################################################################################################
 
@@ -45,6 +45,12 @@ do
 	echo "}{${level//_/ }}" >>${TEX_FILE_DEVICES_TARGETVALUES}
 done
 rm -f devices_tmp.txt 
+
+sed -i -e "s/LOW/Low/g" ${TEX_FILE_DEVICES_TARGETVALUES}
+sed -i -e "s/MEDIUM/Medium/g" ${TEX_FILE_DEVICES_TARGETVALUES}
+sed -i -e "s/HIGH/High/g" ${TEX_FILE_DEVICES_TARGETVALUES}
+sed -i -e "s/MISSION CRITICAL/Mission Critical/g" ${TEX_FILE_DEVICES_TARGETVALUES}
+
 #####################################################################################################################
 
 echo "--> Get OS type"
@@ -57,6 +63,10 @@ do
 	grep -c ${os} devices_type.txt | tr -d '\n' >>${TEX_FILE_DEVICES_OS}
 	echo "}{${os}}" >>${TEX_FILE_DEVICES_OS}
 done
+
+sed -i -e "s/WINDOWS/Windows/g" ${TEX_FILE_DEVICES_OS}
+sed -i -e "s/MAC/Mac/g" ${TEX_FILE_DEVICES_OS}
+sed -i -e "s/LINUX/Linux/g" ${TEX_FILE_DEVICES_OS}
 
 #####################################################################################################################
 
