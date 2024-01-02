@@ -47,6 +47,7 @@ cbctl:
 	./cbcreds.sh default >config.sh
 	./cbgetcbctl.sh
 
+.PHONY: clean
 clean:
 	$(RM) *.log *.pdf *.out *.aux *.toc *.json *.txt *.synctex.gz \
 	 *.g* *.ist *.lot critical.tex device* author.tex cbreport.lof \
@@ -56,4 +57,8 @@ clean:
 	 clusterlistdiff.tex malware.tex runtimealert.tex alertsnamespace.tex \
 	 alertsremoteip.tex devices_bypass.tex alertstopped.tex \
 	 alertdetected.tex alertwatchlist.tex
+
+.PHONY: update
+update:
+	git pull origin main
 
