@@ -22,6 +22,7 @@ first:
 
 # Generate a report every first day of month, modify using "crontab -e".
 .PHONY: crontab
+crontab:
 	./crontab.sh
 
 .PHONY: example
