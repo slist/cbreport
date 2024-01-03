@@ -20,11 +20,12 @@ first:
 	-xelatex -synctex=1 -interaction=nonstopmode cbreport.tex
 	xpdf cbreport.pdf &
 	-xelatex -synctex=1 -interaction=nonstopmode cbexecutivereport.tex
-	xpdf cbexecutivereport.pdf
+	xpdf cbexecutivereport.pdf &
 
 # Generate a report every first day of month, modify using "crontab -e".
 .PHONY: crontab
 crontab:
+#	Install a new task every first day of the month
 	./crontab.sh
 
 .PHONY: example
@@ -40,7 +41,11 @@ example:
 
 .PHONY: code
 code:
+#	Create the list of Bash and Python scripts
 	./code.sh
+#	Create TOC
+	-xelatex -shell-escape -interaction=nonstopmode code.tex
+#	Create the PDF with all source code
 	-xelatex -shell-escape -interaction=nonstopmode code.tex
 	xpdf code.pdf &
 

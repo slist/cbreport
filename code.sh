@@ -9,8 +9,6 @@ for f in *.sh;
 do
 	echo -E "\\subsection{$f}" >>${LISTING}
 	echo -E "\lstinputlisting[language=Bash]{$f}" >>${LISTING}
-
-
 done
 
 echo "\\section{Python scripts}" >>${LISTING}
