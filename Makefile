@@ -58,9 +58,15 @@ clean:
 	 vulnoverview.tex registrylistdiff.tex *.old namespacelistdiff.tex \
 	 clusterlistdiff.tex malware.tex runtimealert.tex alertsnamespace.tex \
 	 alertsremoteip.tex devices_bypass.tex alertstopped.tex \
-	 alertdetected.tex alertwatchlist.tex
+	 alertdetected.tex alertwatchlist.tex *.bak
 
 .PHONY: update
 update:
 	git pull origin main
+
+.PHONY: spellcheck
+spellcheck:
+	aspell -c cbreport.tex
+	aspell -c cbexecutivereport.tex
+	aspell -c cbcontainer.tex
 

@@ -44,7 +44,14 @@ pip install -U carbon-black-cloud-sdk
 
 # API Keys
 
-In CBC Console create an API with READ access on all paramaters.
+In your browser, in Carbon Black Cloud Console, create an API  with READ access on all parameters:
+1. In Settings / Access Levels, push the "Add Access Level" button to create a new access level
+1. Name this new access level "Read All", click on all bold "READ" checkboxes, and push "Save" button.
+1. In Settings / API Keys, push the "Add API Key" button to create a new API Key
+1. Name this new API Key "Report API", select "Custom" Access Level Type", and select the "Real All" Custom Access Level, and push "Save" button.
+1. Copy credentials (API ID and API Secret Key) and "Org Key" in a "credentials.cbc" file (See format below).
+
+# Credentials
 
 Create a file ~/.carbonblack/credentials.cbc
 
@@ -87,7 +94,7 @@ make
 
 Each time, you generate a report, a diff with the previous report is generated.
 
-To remove all files, you can use 'make clean', no diff will be generated.
+To remove all files, you can use 'make clean', no diff will be generated next time.
 
 # Generate a report every month
 To add a line in crontab to generate the report every month, you can run:
@@ -95,4 +102,4 @@ To add a line in crontab to generate the report every month, you can run:
 make crontab
 ```
 # Thank You!
-Thank You, and Congratulations if you have setup this automatic report generation!
+Thank You, and Congratulations if you have setup this automatic report generation successfully!
